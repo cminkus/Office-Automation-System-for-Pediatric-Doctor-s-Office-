@@ -10,7 +10,7 @@ public class PatientDashboard {
     public static void display(Stage window, User user) {
         VBox layout = new VBox(10);
         
-        Color backColor = Color.web("#D9FED3");
+        Color backColor = Color.web("#D0F7CF");
         layout.setStyle("-fx-background-color: #" + backColor.toString().substring(2, 8) + ";");
         
         Label title = new Label("PATIENT OVERVIEW");

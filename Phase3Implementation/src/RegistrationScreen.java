@@ -6,14 +6,19 @@ import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
-
+import Phase3Implementation.Utility;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 public class RegistrationScreen extends Application {
 
+	private Map<String, User> users;
+	
     public void start(Stage primaryStage) {
         primaryStage.setTitle("Registration");
 
@@ -22,13 +27,18 @@ public class RegistrationScreen extends Application {
         grid.setHgap(10);
         grid.setVgap(10);
         grid.setPadding(new Insets(25, 25, 25, 25));
+        Color backColor = Color.web("#B0D6FF");
+        grid.setStyle("-fx-background-color: #" + backColor.toString().substring(2, 8) + ";");
+        
 
         // User input fields
         TextField usernameField = new TextField();
+        usernameField.setPromptText("Choose username");
         PasswordField passwordField = new PasswordField();
+        passwordField.setPromptText("Choose password");
         ComboBox<String> roleComboBox = new ComboBox<>();
         roleComboBox.getItems().addAll("Doctor", "Nurse", "Patient");
-
+        roleComboBox.setPromptText("Choose role");
         // Labels
         Label usernameLabel = new Label("Username:");
         Label passwordLabel = new Label("Password:");
@@ -45,10 +55,13 @@ public class RegistrationScreen extends Application {
         grid.add(roleLabel, 0, 3);
         grid.add(roleComboBox, 1, 3);
         grid.add(registerButton, 1, 4);
+        
 
         Scene scene = new Scene(grid, 300, 275);
         primaryStage.setScene(scene);
         primaryStage.show();
+        
+      
     }
 
     private class RegisterButtonHandler implements EventHandler<ActionEvent> {
@@ -67,10 +80,26 @@ public class RegistrationScreen extends Application {
             String password = passwordField.getText();
             String role = roleComboBox.getValue();
 
-            try (BufferedWriter writer = new BufferedWriter(new FileWriter("credentials.txt", true))) {
-                writer.write(username + "," + password + "," + role + "\n");
-            } catch (IOException e) {
-                e.printStackTrace();
+            if(users.containsKey(username)) {
+            	Utility.alert("Failed", "User already registered. Please login instead.");
+            }else if(usernameField.getText().isEmpty()){
+            	Utility.alert("Missing Field", "Username missing. Please choose a username.");
+            }else if(passwordField.getText().isEmpty()){
+            	Utility.alert("Missing Field", "Password missing. Please choose a password.");
+            }else if(roleComboBox.getValue() == null){
+            	Utility.alert("Missing Field", "Role missing. Please choose a role.");
+            }else{
+            	User newUser = new User(username, password, role);
+            	users.put(username,newUser);
+            	// clear the boxes and role fields
+            	usernameField.clear();
+            	passwordField.clear();
+            	
+            	if(!users.containsKey(username)){
+                	Utility.alert("Failed Registration", "Registration Failed, Conect with a customer service representative for assistance at www.customerService.com .");
+                }else {
+                	Utility.alert("Sucess!", "User successfully Registered!");
+                }
             }
         }
     }

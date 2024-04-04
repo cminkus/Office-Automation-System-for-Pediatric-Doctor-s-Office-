@@ -2,29 +2,69 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 public class PatientDashboard {
 
-    public static void display(Stage window) {
+    public static void display(Stage window, User user) {
         VBox layout = new VBox(10);
+        
+        Color backColor = Color.web("#D9FED3");
+        layout.setStyle("-fx-background-color: #" + backColor.toString().substring(2, 8) + ";");
+        
         Label title = new Label("PATIENT OVERVIEW");
-
-        Label nameLabel = new Label("Name: [Patient Name]");
-        Label dobLabel = new Label("Date of Birth: [DOB]");
-        Label allergiesLabel = new Label("Allergies: [Allergies]");
-        Label medicationLabel = new Label("Medication: [Medication]");
-        // Add more labels as needed
-
-        Button editPhoneButton = new Button("Edit Phone Number");
+        title.setTranslateX(60);
+        title.setStyle("-fx-font-family: 'Times New Roman'; -fx-font-size: 18px;-fx-underline: true;");
+        
+        Label pID = new Label("Patient ID: " + user.getID());
+        pID.setTranslateX(20);
+        
+        String fileName = user.getID() + "_PatientFile.txt";
+        readFile reader = new readFile();
+        reader.mainRead(fileName);
+                
+        Label nameLabel = new Label("Name: " + reader.getFullName());
+        nameLabel.setTranslateX(20);
+        Label dobLabel = new Label("Date of Birth: " + reader.getDOB());
+        dobLabel.setTranslateX(20);
+        Label emailLabel = new Label("Email: " + reader.getEmail());
+        emailLabel.setTranslateX(20);
+        Label phoneLabel = new Label("Phone number: " + reader.getPhone());
+        phoneLabel.setTranslateX(20);
+        Label allergiesLabel = new Label("Allergies: " + reader.getAllergies());
+        allergiesLabel.setTranslateX(20);
+        Label pharmacyLabel = new Label("Pharmacy: " + reader.getPharmacy());
+        pharmacyLabel.setTranslateX(20);
+        Label insuranceLabel = new Label("Insurance: " + reader.getPatientInsurance());
+        insuranceLabel.setTranslateX(20);
+        Label HHLabel = new Label("Health History: " + reader.getPatientHH());
+        HHLabel.setTranslateX(20);
+        
+        
+        Button editButton = new Button("Edit Phone Number or Email");
+        editButton.setTranslateX(15);
+        editButton.setOnAction(event -> {
+           
+        });
+        
         Button chatWithDoctorButton = new Button("Chat with Doctor/Nurse");
-
+        chatWithDoctorButton.setTranslateX(15);
+        chatWithDoctorButton.setOnAction(event -> {
+        	ChatScreen chat = new ChatScreen();
+        	chat.setRole(user.getRole());
+        	chat.start(window);
+        });
+        
         Button logoutButton = new Button("Logout");
-
-        layout.getChildren().addAll(title, nameLabel, dobLabel, allergiesLabel, medicationLabel, editPhoneButton, chatWithDoctorButton, logoutButton);
+        logoutButton.setTranslateX(220);
+        logoutButton.setOnAction(e -> window.close()); 
+        
+        layout.getChildren().addAll(title, pID,nameLabel, dobLabel,emailLabel,phoneLabel, allergiesLabel,pharmacyLabel,insuranceLabel,HHLabel, editButton, chatWithDoctorButton, logoutButton);
         Scene scene = new Scene(layout, 300, 400);
         window.setScene(scene);
-        window.setTitle("Patient Overview");
+        window.setTitle("Patient Dashboard");
         window.show();
     }
+    
 }

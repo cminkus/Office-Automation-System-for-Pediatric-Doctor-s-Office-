@@ -16,6 +16,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class RegistrationScreen extends Application {
+
 	private Map<String, User> users = Database.getuser();
 	
     public void start(Stage primaryStage) {
@@ -26,7 +27,7 @@ public class RegistrationScreen extends Application {
         grid.setHgap(10);
         grid.setVgap(10);
         grid.setPadding(new Insets(25, 25, 25, 25));
-        Color backColor = Color.web("#B0D6FF");
+        Color backColor = Color.web("#B0EADD");
         grid.setStyle("-fx-background-color: #" + backColor.toString().substring(2, 8) + ";");
         
 

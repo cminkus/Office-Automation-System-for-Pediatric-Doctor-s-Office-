@@ -7,7 +7,7 @@ import javafx.stage.Stage;
 
 public class DoctorDashboard {
 
-    public static void display(Stage window) {
+    public static void display(Stage window, User user) {
         VBox layout = new VBox(10);
         Label title = new Label("TODAY’S APPOINTMENT");
 
@@ -19,12 +19,19 @@ public class DoctorDashboard {
         Button patientSearchButton = new Button("Patient Search");
         Button recommendationsButton = new Button("Recommendations");
         Button vitalsButton = new Button("Vitals");
-        Button contactPatientsButton = new Button("Contact Patients");
+        
+        Button chatWithPatientButton = new Button("Contact Patients");
+        chatWithPatientButton.setOnAction(event -> {
+        	ChatScreen chat = new ChatScreen();
+        	chat.setRole(user.getRole());
+        	chat.start(window);
+        });
         Button prescriptionsButton = new Button("Prescriptions");
 
         Button logoutButton = new Button("Logout");
-
-        layout.getChildren().addAll(title, patientList, addPatientButton, patientSearchButton, recommendationsButton, vitalsButton, contactPatientsButton, prescriptionsButton, logoutButton);
+        logoutButton.setOnAction(e -> window.close()); 
+        
+        layout.getChildren().addAll(title, patientList, addPatientButton, patientSearchButton, recommendationsButton, vitalsButton, chatWithPatientButton, prescriptionsButton, logoutButton);
         Scene scene = new Scene(layout, 300, 400);
         window.setScene(scene);
         window.setTitle("Doctor Dashboard");

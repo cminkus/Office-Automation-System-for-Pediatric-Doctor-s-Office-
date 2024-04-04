@@ -1,10 +1,17 @@
-public class User {
+import java.io.File;
+import java.io.Serializable;
+import java.util.UUID;
+
+public class User implements Serializable {
+	protected String ID;
     protected String username;
     protected String password;
     protected String role;
+   
 
     public User(String username, String password, String role) {
-        this.username = username;
+    	this.ID = IDgen();
+    	this.username = username;
         this.password = password;
         this.role = role;
     }
@@ -38,4 +45,22 @@ public class User {
     public void setRole(String role) {
         this.role = role;
     }
+    private String IDgen() {
+    	
+    	return UUID.randomUUID().toString().replaceAll("-", "").substring(0, 7);
+    }
+    
+    public String getID() {
+    	return ID;
+    }
+    
+    public String getFileName(String role) {
+    	String fileName = ID + "_patientFile.txt";
+    	File file = new File(fileName);
+    	if(role.equals("patient") && file.exists()) {
+	    	return fileName;
+    	}
+    	return null;
+    }
+    
 }

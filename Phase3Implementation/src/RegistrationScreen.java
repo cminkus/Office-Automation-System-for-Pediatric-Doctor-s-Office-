@@ -16,8 +16,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class RegistrationScreen extends Application {
-
-	private Map<String, User> users;
+	private Map<String, User> users = Database.getuser();
 	
     public void start(Stage primaryStage) {
         primaryStage.setTitle("Registration");

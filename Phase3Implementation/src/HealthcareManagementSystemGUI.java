@@ -29,7 +29,7 @@ public class HealthcareManagementSystemGUI extends Application {
         users = Database.getuser();
         
         VBox root = new VBox();
-        Color backColor = Color.web("#B0D6FF");
+        Color backColor = Color.web("#B0EADD");
         root.setStyle("-fx-background-color: #" + backColor.toString().substring(2, 8) + ";");
         root.setAlignment(Pos.CENTER);
         root.setSpacing(10);

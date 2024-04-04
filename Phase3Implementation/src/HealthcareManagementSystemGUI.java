@@ -6,32 +6,45 @@ import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.Map;
 
 public class HealthcareManagementSystemGUI extends Application {
-
+	
     private Stage primaryStage;
 
+    private Map<String, User> users = Database.getuser();
+    
     
     public void start(Stage primaryStage) {
         this.primaryStage = primaryStage;
         primaryStage.setTitle("Healthcare Management System");
 
+        Database.retrieveData();
+        users = Database.getuser();
+        
         VBox root = new VBox();
+        Color backColor = Color.web("#B0D6FF");
+        root.setStyle("-fx-background-color: #" + backColor.toString().substring(2, 8) + ";");
         root.setAlignment(Pos.CENTER);
         root.setSpacing(10);
 
         Label welcomeLabel = new Label("Welcome to the Healthcare Management System");
+        welcomeLabel.setStyle("-fx-font-family: 'Times New Roman'; -fx-font-size: 18px;-fx-underline: true;");
+       
 
         TextField usernameField = new TextField();
-        usernameField.setPromptText("Username");
+        usernameField.setPromptText("Enter username");
+        usernameField.setMaxWidth(200);
 
         PasswordField passwordField = new PasswordField();
-        passwordField.setPromptText("Password");
+        passwordField.setPromptText("Enter password");
+        passwordField.setMaxWidth(200);
 
         Button loginButton = new Button("Login");
         loginButton.setOnAction(event -> {
@@ -40,9 +53,10 @@ public class HealthcareManagementSystemGUI extends Application {
 
             User user = authenticateUser(username, password);
             if (user != null) {
+            	Utility.alert("Success", "Login successful!");
                 redirectToDashboard(user);
             } else {
-                System.out.println("Login Failed. Please try again.");
+            		Utility.alert("Login Failed", "Username or Password incorrect. If you've already registered, check your user credentials. If you have not registered, visit the registration page.");
             }
         });
 
@@ -57,19 +71,19 @@ public class HealthcareManagementSystemGUI extends Application {
         Scene scene = new Scene(root, 400, 300);
         primaryStage.setScene(scene);
         primaryStage.show();
+        
+        primaryStage.setOnCloseRequest(event -> {
+            // Save data before closing the application
+            Database.saveData();
+        });
     }
 
     private User authenticateUser(String username, String password) {
-        try (BufferedReader reader = new BufferedReader(new FileReader("credentials.txt"))) {
-            String line;
-            while ((line = reader.readLine()) != null) {
-                String[] credentials = line.split(",");
-                if (credentials[0].equals(username) && credentials[1].equals(password)) {
-                    return new User(credentials[0], credentials[1], credentials[2]); // assuming User constructor exists
-                }
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
+        if(users.containsKey(username)) {
+        	User user = users.get(username);
+        	if(user.getPassword().equals(password)) {
+        		return user;
+        	}
         }
         return null;
     }
@@ -77,13 +91,13 @@ public class HealthcareManagementSystemGUI extends Application {
     private void redirectToDashboard(User user) {
         switch (user.getRole()) {
             case "Doctor":
-                DoctorDashboard.display(primaryStage);
+                DoctorDashboard.display(primaryStage ,user);
                 break;
             case "Nurse":
-                NurseDashboard.display(primaryStage);
+                NurseDashboard.display(primaryStage ,user);
                 break;
             case "Patient":
-                PatientDashboard.display(primaryStage);
+                PatientDashboard.display(primaryStage ,user);
                 break;
             default:
                 System.out.println("Role not recognized");

@@ -1,4 +1,7 @@
-public class Appointment {
+import java.io.Serializable;
+
+public class Appointment implements Serializable{
+    private static final long serialVersionUID = 1L; // Ensure compatibility across different JVMs
     private String appointmentId;
     private String doctorUsername;
     private String patientUsername;

@@ -1,4 +1,6 @@
 package Phase3Implementation;
+
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -22,19 +24,27 @@ public class Database {
 		return users;
 	}
 	public static void saveData( ) {
-		try(ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(FILENAME))){
-			out.writeObject(users);
-		}catch(IOException e) {
-			e.printStackTrace();
-		}
+		File file = new File(FILENAME);
+		try {
+	        if (!file.exists()) {
+	            file.createNewFile(); 
+	        }
+	        try (ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(FILENAME))) {
+	            out.writeObject(users);
+	        } catch (IOException e) {
+	            e.printStackTrace();
+	        }
+	    } catch (IOException e) {
+	        e.printStackTrace();
+	    }
 	}
 	
 	public static void retrieveData( ) {
 		try(ObjectInputStream in = new ObjectInputStream(new FileInputStream(FILENAME))){
 			users = (Map<String, User>) in.readObject();
+			
 		}catch(IOException | ClassNotFoundException e) {
 			e.printStackTrace();
 		}
 	}
 }
-

@@ -1,9 +1,10 @@
 package Phase3Implementation;
+
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-
-import javafx.application.Application;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -11,19 +12,27 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 public class VitalsPage {
 
 
-    public void start(Stage primaryStage, User user, Appointment appointment) {
+    public void start(Stage primaryStage, String ID, User user) {
         primaryStage.setTitle("Enter Vitals");
-
+        
+        LocalDate Datenow = LocalDate.now();
+        DateTimeFormatter fortmatDate = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        String formattedDate = Datenow.format(fortmatDate);
+        
         GridPane grid = new GridPane();
         grid.setAlignment(Pos.CENTER);
         grid.setHgap(10);
         grid.setVgap(10);
         grid.setPadding(new Insets(25, 25, 25, 25));
+        Color backColor = Color.web("#B0EADD");
+        grid.setStyle("-fx-background-color: #" + backColor.toString().substring(2, 8) + ";");
+        
 
         TextField bloodPressureField = new TextField();
         TextField temperatureField = new TextField();
@@ -51,11 +60,9 @@ public class VitalsPage {
              	Utility.alert("Missing Field","Weight is missing.");
              }else if(heightField.getText().isEmpty()) {
              	Utility.alert("Missing Field","Height is missing.");
-             }else if(appointment.equals(null)) {
-            	 Utility.alert("No Appointment","No Current Appointment");
              }else {
             	 Utility.alert("Success", "Vitals information successfuly created and saved!");
-            	 String fileName = "src/Phase3Implementation/" + appointment.getAppointmentId() + "_" + user.getID() + "_Vitals.txt";
+            	 String fileName = "src/Phase3Implementation/" + formattedDate + "_" + ID + "_Vitals.txt";
             	 try {
 	            		File file = new File(fileName);
 	            		FileWriter writer = new FileWriter(file);
@@ -69,11 +76,19 @@ public class VitalsPage {
 	            	}
              }
        });
+        Button backButton = new Button("Back");
+        backButton.setOnAction(event -> {
+            PatientSearch.start(primaryStage, user, null);
+
+        });
 
         Scene scene = new Scene(grid, 300, 250);
         primaryStage.setScene(scene);
         primaryStage.show();
     }
+
+    
+}
 
     
 }

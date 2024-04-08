@@ -1,3 +1,4 @@
+package Phase3Implementation;
 public class Prescription {
     private String prescriptionId;
     private String doctorUsername;

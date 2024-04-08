@@ -1,3 +1,4 @@
+package Phase3Implementation;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -38,17 +39,16 @@ public class NurseDashboard {
         patientSearchButton.setTranslateX(20);
         patientSearchButton.setOnAction(event -> {
         	PatientSearch patser = new PatientSearch();
-        	patser.start(window, user);
+        	patser.start(window, user, null);
         });
-        Button vitalsButton = new Button("Vitals");
-        vitalsButton.setTranslateX(20);
+        
 
         Button logoutButton = new Button("Logout");
         logoutButton.setTranslateX(220);
         logoutButton.setTranslateY(-10);
         logoutButton.setOnAction(e -> window.close()); // Simple logout logic
 
-        layout.getChildren().addAll(title, patientList, addPatientButton, patientSearchButton, vitalsButton, logoutButton);
+        layout.getChildren().addAll(title, patientList, addPatientButton, patientSearchButton, logoutButton);
         Scene scene = new Scene(layout, 300, 400);
         window.setScene(scene);
         window.setTitle("Nurse Dashboard");

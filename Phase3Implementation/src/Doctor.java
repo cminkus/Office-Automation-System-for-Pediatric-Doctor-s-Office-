@@ -1,8 +1,9 @@
+package Phase3Implementation;
 import java.util.ArrayList;
 import java.util.List;
 
 public class Doctor extends User {
-    private List<Appointment> appointments; // Changed to Appointment objects
+    public List<Appointment> appointments; // Changed to Appointment objects
 
     public Doctor(String username, String password, String role) {
         super(username, password, role);
@@ -19,6 +20,10 @@ public class Doctor extends User {
 
     public List<Appointment> getAppointments() {
         return new ArrayList<>(appointments);
+    }
+    
+    public Appointment getCurrentAppointment() {
+    	return appointments.getFirst();
     }
 
     @Override

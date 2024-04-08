@@ -1,6 +1,8 @@
+package Phase3Implementation;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.Map;
 
 import javafx.application.Application;
 import javafx.geometry.Insets;
@@ -18,7 +20,6 @@ public class AddPatientInformation extends Application {
     
     public void start(Stage primaryStage) {
         primaryStage.setTitle("Add Patient Information");
-
         GridPane grid = new GridPane();
         grid.setAlignment(Pos.CENTER);
         grid.setHgap(11);
@@ -63,6 +64,13 @@ public class AddPatientInformation extends Application {
 
         Button submitButton = new Button("Submit");
         grid.add(submitButton, 1, 11);
+        Button backButton = new Button("Back");
+        grid.add(backButton, 2, 11);
+        
+        backButton.setOnAction(event -> {
+        	Stage currentStage = (Stage) backButton.getScene().getWindow();
+            currentStage.close();
+        });
 
         submitButton.setOnAction(event -> {
         	 if(userIDField.getText().isEmpty()) {
@@ -119,4 +127,4 @@ public class AddPatientInformation extends Application {
     }
 
 }
-}
+

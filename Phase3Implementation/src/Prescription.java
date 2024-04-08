@@ -1,8 +1,10 @@
 package Phase3Implementation;
-public class Prescription {
-    private String prescriptionId;
+
+import java.io.Serializable;
+
+public class Prescription implements Serializable{
     private String doctorUsername;
-    private String patientUsername;
+    private String patientID;
     private String medicationName;
     private String dosage;
     private String frequency;
@@ -12,12 +14,12 @@ public class Prescription {
     private String notes;
 
     // Constructor
-    public Prescription(String prescriptionId, String doctorUsername, String patientUsername,
+    public Prescription( String doctorUsername, String patientID,
                         String medicationName, String dosage, String frequency, 
                         String issueDate, String expiryDate, int refills, String notes) {
-        this.prescriptionId = prescriptionId;
+        
         this.doctorUsername = doctorUsername;
-        this.patientUsername = patientUsername;
+        this.patientID = patientID;
         this.medicationName = medicationName;
         this.dosage = dosage;
         this.frequency = frequency;
@@ -27,17 +29,14 @@ public class Prescription {
         this.notes = notes;
     }
 
-    // Getters
-    public String getPrescriptionId() {
-        return prescriptionId;
-    }
+   
 
     public String getDoctorUsername() {
         return doctorUsername;
     }
 
-    public String getPatientUsername() {
-        return patientUsername;
+    public String getPatientID() {
+        return patientID;
     }
 
     public String getMedicationName() {
@@ -68,17 +67,13 @@ public class Prescription {
         return notes;
     }
 
-    // Setters
-    public void setPrescriptionId(String prescriptionId) {
-        this.prescriptionId = prescriptionId;
-    }
 
     public void setDoctorUsername(String doctorUsername) {
         this.doctorUsername = doctorUsername;
     }
 
     public void setPatientUsername(String patientUsername) {
-        this.patientUsername = patientUsername;
+        this.patientID = patientUsername;
     }
 
     public void setMedicationName(String medicationName) {
@@ -111,10 +106,9 @@ public class Prescription {
 
     @Override
     public String toString() {
-        return "Prescription{" +
-                "prescriptionId='" + prescriptionId + '\'' +
-                ", doctorUsername='" + doctorUsername + '\'' +
-                ", patientUsername='" + patientUsername + '\'' +
+        return "Prescription Summary {" +
+                ", Doctor Username ='" + doctorUsername + 
+                ", Patient ID ='" + patientID + 
                 ", medicationName='" + medicationName + '\'' +
                 ", dosage='" + dosage + '\'' +
                 ", frequency='" + frequency + '\'' +

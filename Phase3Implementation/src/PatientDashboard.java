@@ -1,4 +1,6 @@
 package Phase3Implementation;
+
+
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -46,9 +48,7 @@ public class PatientDashboard {
         Button editButton = new Button("Edit Phone Number or Email");
         editButton.setTranslateX(15);
         editButton.setOnAction(event -> {
-        	Stage changeInfoStage = new Stage();
-        	ChangePatientInfo changePatientInfo = new ChangePatientInfo();
-        	changePatientInfo.start(changeInfoStage, user);
+           
         });
         
         Button chatWithDoctorButton = new Button("Chat with Doctor/Nurse");
@@ -61,7 +61,10 @@ public class PatientDashboard {
         
         Button logoutButton = new Button("Logout");
         logoutButton.setTranslateX(220);
-        logoutButton.setOnAction(e -> window.close()); 
+        logoutButton.setOnAction(e -> {
+            HealthcareManagementSystemGUI loginpage = new HealthcareManagementSystemGUI();
+            loginpage.start(window);
+        });
         
         layout.getChildren().addAll(title, pID,nameLabel, dobLabel,emailLabel,phoneLabel, allergiesLabel,pharmacyLabel,insuranceLabel,HHLabel, editButton, chatWithDoctorButton, logoutButton);
         Scene scene = new Scene(layout, 300, 400);

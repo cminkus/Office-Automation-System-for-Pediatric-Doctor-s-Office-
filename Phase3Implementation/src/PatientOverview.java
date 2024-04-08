@@ -1,4 +1,5 @@
 package Phase3Implementation;
+
 import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -10,7 +11,7 @@ import javafx.stage.Stage;
 
 public class PatientOverview extends Application {
 
-    @Override
+    
     public void start(Stage primaryStage) {
         primaryStage.setTitle("Patient Overview");
 
@@ -50,7 +51,7 @@ public class PatientOverview extends Application {
         Button editButton = new Button("Edit Information");
         grid.add(editButton, 1, 8);
 
-        // Button to go back or to other screens can be added here
+       
 
         Scene scene = new Scene(grid, 450, 400);
         primaryStage.setScene(scene);

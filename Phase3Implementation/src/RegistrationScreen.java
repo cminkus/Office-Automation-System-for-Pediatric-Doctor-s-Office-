@@ -92,7 +92,7 @@ public class RegistrationScreen extends Application {
             }else{
             	User newUser = new User(username, password, role);
             	users.put(username,newUser);
-            	// clear the boxes and role fields
+            	
             	usernameField.clear();
             	passwordField.clear();
             	

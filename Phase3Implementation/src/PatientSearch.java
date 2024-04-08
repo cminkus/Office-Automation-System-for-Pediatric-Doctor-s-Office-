@@ -1,3 +1,4 @@
+package Phase3Implementation;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -8,7 +9,7 @@ import javafx.stage.Stage;
 
 public class PatientSearch {
 
-    public void start(Stage window) {
+    public void start(Stage window, User user, Appointment appointment) {
         VBox layout = new VBox(10);
         
         Color backColor = Color.web("#D9FED3");
@@ -32,8 +33,27 @@ public class PatientSearch {
         search.setTranslateX(125);
         search.setTranslateY(-10);
         
-        Button contactPatient = new Button("Contact Patient");
+        Button vitalsButton = new Button("Vitals");
+        vitalsButton.setTranslateX(20);
+        vitalsButton.setOnAction(event -> {
+        	VitalsPage vpage = new VitalsPage();
+        	vpage.start(window, user, appointment);
+        });
         
+        Button contactPatient = new Button("Contact Patient");
+        Button backButton = new Button("Back");
+        backButton.setTranslateX(125);
+        backButton.setTranslateY(-10);
+        backButton.setOnAction(event -> {
+        	switch (user.getRole()) {
+            case "Doctor":
+                DoctorDashboard.display(window ,user);
+                break;
+            case "Nurse":
+                NurseDashboard.display(window ,user);
+                break;
+        }
+        });
         
         search.setOnAction(event ->{
         	if(!enteredID.getText().isEmpty()) { 
@@ -58,14 +78,15 @@ public class PatientSearch {
     	        Label HHLabel = new Label("Health History: " + reader.getPatientHH());
     	        HHLabel.setTranslateX(20);
     	        contactPatient.setTranslateX(20);
-    	        layout.getChildren().addAll(nameLabel, dobLabel,emailLabel,phoneLabel, allergiesLabel,pharmacyLabel,insuranceLabel,HHLabel,contactPatient);
+    	        vitalsButton.setTranslateX(20);
+    	        layout.getChildren().addAll(nameLabel, dobLabel,emailLabel,phoneLabel, allergiesLabel,pharmacyLabel,insuranceLabel,HHLabel,contactPatient, vitalsButton);
     	    }
         });
       
-        layout.getChildren().addAll(title, pID,enteredID,search);
+        layout.getChildren().addAll(title, pID,enteredID,search,backButton);
         Scene scene = new Scene(layout, 300, 400);
         window.setScene(scene);
-        window.setTitle("Patient Dashboard");
+        window.setTitle("Patient Search");
         window.show();
     }
     

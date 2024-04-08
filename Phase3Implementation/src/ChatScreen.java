@@ -1,3 +1,4 @@
+package Phase3Implementation;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -13,7 +14,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 
-public class ChatScreen extends Application {
+public class ChatScreen {
 
     private TextArea chatHistory;
     private TextField messageInput;
@@ -23,8 +24,7 @@ public class ChatScreen extends Application {
     	this.role=role;
     }
 
-    @Override
-    public void start(Stage primaryStage) {
+    public void start(Stage primaryStage, User user) {
     	automaticResponsePatient.add("Google says your dying sorry bro");
      	automaticResponsePatient.add("Take tylenol");
      	automaticResponsePatient.add("It's because you're always on your phone, your mom was right");
@@ -47,7 +47,7 @@ public class ChatScreen extends Application {
      	automaticResponseDoctor.add("I've tried natural at home remedies, but they haven't helped much. What do you suggest I do next?");
      	automaticResponseDoctor.add("I've been feeling really anxious about my health lately, and I'm not sure what steps to take. Can you provide some guidance?");
      	
-     	if(role .equals( "Patient")) {
+     	if(role .equals("Patient")) {
      		primaryStage.setTitle("Chat with Doctor/Nurse");
      	}else {
      		primaryStage.setTitle("Chat with Patient");
@@ -65,10 +65,23 @@ public class ChatScreen extends Application {
         Button sendButton = new Button("Send");
         
 		sendButton.setOnAction(event -> handleSendMessage());
+		Button backButton = new Button("Back");
+        backButton.setOnAction(event -> {
+        	switch (user.getRole()) {
+            case "Doctor":
+                DoctorDashboard.display(primaryStage ,user);
+                break;
+            case "Nurse":
+                NurseDashboard.display(primaryStage ,user);
+                break;
+            case "Patient":
+            	PatientDashboard.display(primaryStage, user);
+        	}
+        });
 
         HBox bottomLayout = new HBox(10);
         bottomLayout.setAlignment(Pos.CENTER);
-        bottomLayout.getChildren().addAll(messageInput, sendButton);
+        bottomLayout.getChildren().addAll(messageInput, sendButton, backButton);
 
         layout.setCenter(chatHistory);
         layout.setBottom(bottomLayout);

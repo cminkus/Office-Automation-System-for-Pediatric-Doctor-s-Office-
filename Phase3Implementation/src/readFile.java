@@ -1,3 +1,4 @@
+package Phase3Implementation;
 import java.io.File; 
 import java.io.FileNotFoundException;
 import java.util.Scanner;
@@ -75,6 +76,12 @@ public class readFile{
 	public String getFullName() {
 		return pFullName;
 	}
+	public String getFirstName() {
+		return patientFirst;
+	}
+	public String getLastName() {
+		return patientLast;
+	}
 	public String getDOB() {
 		return patientDOB;
 	}
@@ -95,5 +102,11 @@ public class readFile{
 	}
 	public String getPatientHH() {
 		return patientHH;
+	}
+	public void changePhone(String newPhone) {
+		patientPhone = newPhone;
+	}
+	public void changeEmail(String newEmail) {
+		patientEmail = newEmail;
 	}
 }

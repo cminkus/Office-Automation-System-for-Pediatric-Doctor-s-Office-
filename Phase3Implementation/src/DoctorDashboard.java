@@ -1,3 +1,4 @@
+package Phase3Implementation;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.time.LocalDate;
@@ -25,12 +26,11 @@ import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 public class DoctorDashboard {
-
-    private static TableView<Appointment> appointmentsTable = new TableView<>();
+	
+	private static TableView<Appointment> appointmentsTable = new TableView<>();
 
     public static void display(Stage window, User user) {
         VBox layout = new VBox(10);
-        layout.getChildren().clear();
         Color backColor = Color.web("#CFD9F7");
         layout.setStyle("-fx-background-color: #" + backColor.toString().substring(2, 8) + ";");
         
@@ -41,10 +41,10 @@ public class DoctorDashboard {
         appointmentsTable = new TableView<>();
         ObservableList<Appointment> appointmentsData = FXCollections.observableArrayList();
 
-        // ListView<String> patientList = new ListView<>();
-        // patientList.setMaxHeight(200);
-        // patientList.setMaxWidth(300);
-        // patientList.getItems().addAll("Patient A", "Patient B", "Patient C");
+        ListView<String> patientList = new ListView<>();
+        patientList.setMaxHeight(200);
+        patientList.setMaxWidth(300);
+        patientList.getItems().addAll("Patient A", "Patient B", "Patient C");
 
         Button addPatientButton = new Button("Add New Patient");
         addPatientButton.setTranslateX(20);
@@ -59,18 +59,15 @@ public class DoctorDashboard {
         patientSearchButton.setTranslateX(20);
         patientSearchButton.setOnAction(event -> {
         	PatientSearch patser = new PatientSearch();
-        	patser.start(window);
+        	Doctor doctor = (Doctor) user;
+        	Appointment currentAppointment = doctor.getCurrentAppointment();
+        	patser.start(window, user, currentAppointment);
         });
         Button recommendationsButton = new Button("Recommendations");
         recommendationsButton.setTranslateX(20);
-        Button vitalsButton = new Button("Vitals");
-        vitalsButton.setTranslateX(20);
        
         Button prescriptionsButton = new Button("Prescriptions");
         prescriptionsButton.setTranslateX(20);
-        prescriptionsButton.setOnAction(e -> {
-            showPrescriptionForm(window, user); // Pass the current 'user' which is a Doctor
-        });
         
         Button bookAppointmentButton = new Button("Book Appointment");
         bookAppointmentButton.setTranslateX(20); // Adjust positioning as needed
@@ -105,13 +102,13 @@ public class DoctorDashboard {
         logoutButton.setTranslateY(-10);
         logoutButton.setOnAction(e -> window.close()); 
         
-        layout.getChildren().addAll(title, addPatientButton, patientSearchButton, recommendationsButton, vitalsButton, prescriptionsButton, bookAppointmentButton, logoutButton);
+        layout.getChildren().addAll(title, patientList, addPatientButton, patientSearchButton, recommendationsButton, bookAppointmentButton, prescriptionsButton, logoutButton);
         Scene scene = new Scene(layout, 300, 400);
         window.setScene(scene);
         window.setTitle("Doctor Dashboard");
         window.show();
     }
-
+    
     private static ObservableList<Appointment> getDoctorAppointments(Doctor doctor) {
         LocalDate today = LocalDate.now();
         List<Appointment> todaysAppointments = doctor.getAppointments().stream()

@@ -1,8 +1,8 @@
 package Phase3Implementation;
+
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.Map;
 
 import javafx.application.Application;
 import javafx.geometry.Insets;
@@ -15,11 +15,12 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 
-public class AddPatientInformation extends Application {
+public class AddPatientInformation  {
 
     
-    public void start(Stage primaryStage) {
+    public void start(Stage primaryStage, User user) {
         primaryStage.setTitle("Add Patient Information");
+
         GridPane grid = new GridPane();
         grid.setAlignment(Pos.CENTER);
         grid.setHgap(11);
@@ -61,16 +62,23 @@ public class AddPatientInformation extends Application {
         grid.add(new Label("Health History:"), 0, 10);
         grid.add(healthHistoryField, 1, 10);
         
-
+        Button backButton = new Button("Back");
+        backButton.setTranslateX(125);
+        backButton.setTranslateY(-10);
+        backButton.setOnAction(event -> {
+        	switch (user.getRole()) {
+            case "Doctor":
+                DoctorDashboard.display(primaryStage ,user);
+                break;
+            case "Nurse":
+                NurseDashboard.display(primaryStage ,user);
+                break;
+        }
+        });
+        grid.add(backButton, 1, 12);
+        
         Button submitButton = new Button("Submit");
         grid.add(submitButton, 1, 11);
-        Button backButton = new Button("Back");
-        grid.add(backButton, 2, 11);
-        
-        backButton.setOnAction(event -> {
-        	Stage currentStage = (Stage) backButton.getScene().getWindow();
-            currentStage.close();
-        });
 
         submitButton.setOnAction(event -> {
         	 if(userIDField.getText().isEmpty()) {
@@ -121,10 +129,9 @@ public class AddPatientInformation extends Application {
             	
         });
 
-        Scene scene = new Scene(grid, 450, 450);
+        Scene scene = new Scene(grid, 450, 500);
         primaryStage.setScene(scene);
         primaryStage.show();
     }
 
 }
-

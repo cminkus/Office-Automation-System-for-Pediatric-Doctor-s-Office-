@@ -1,4 +1,5 @@
 package Phase3Implementation;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -12,10 +13,12 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
-public class ChatScreen {
+public class ChatScreen  {
 
+	
     private TextArea chatHistory;
     private TextField messageInput;
     private String role;
@@ -24,6 +27,7 @@ public class ChatScreen {
     	this.role=role;
     }
 
+    
     public void start(Stage primaryStage, User user) {
     	automaticResponsePatient.add("Google says your dying sorry bro");
      	automaticResponsePatient.add("Take tylenol");
@@ -47,13 +51,16 @@ public class ChatScreen {
      	automaticResponseDoctor.add("I've tried natural at home remedies, but they haven't helped much. What do you suggest I do next?");
      	automaticResponseDoctor.add("I've been feeling really anxious about my health lately, and I'm not sure what steps to take. Can you provide some guidance?");
      	
-     	if(role .equals("Patient")) {
+     	if(role .equals( "Patient")) {
      		primaryStage.setTitle("Chat with Doctor/Nurse");
      	}else {
      		primaryStage.setTitle("Chat with Patient");
      	}
         BorderPane layout = new BorderPane();
         layout.setPadding(new Insets(10));
+        Color backColor = Color.web("#B0EADD");
+        layout.setStyle("-fx-background-color: #" + backColor.toString().substring(2, 8) + ";");
+        
 
         chatHistory = new TextArea();
         chatHistory.setEditable(false);
@@ -64,24 +71,28 @@ public class ChatScreen {
 
         Button sendButton = new Button("Send");
         
-		sendButton.setOnAction(event -> handleSendMessage());
+		sendButton.setOnAction(event -> 
+		handleSendMessage()
+		);
+		
 		Button backButton = new Button("Back");
         backButton.setOnAction(event -> {
-        	switch (user.getRole()) {
+        	switch (role) {
             case "Doctor":
-                DoctorDashboard.display(primaryStage ,user);
+            	PatientSearch.start(primaryStage, user, null);
                 break;
             case "Nurse":
-                NurseDashboard.display(primaryStage ,user);
+            	PatientSearch.start(primaryStage, user, null);
                 break;
             case "Patient":
             	PatientDashboard.display(primaryStage, user);
         	}
         });
+        backButton.setTranslateX(50);
 
         HBox bottomLayout = new HBox(10);
         bottomLayout.setAlignment(Pos.CENTER);
-        bottomLayout.getChildren().addAll(messageInput, sendButton, backButton);
+        bottomLayout.getChildren().addAll(messageInput, sendButton,backButton);
 
         layout.setCenter(chatHistory);
         layout.setBottom(bottomLayout);

@@ -59,7 +59,7 @@ public class DoctorDashboard {
         patientSearchButton.setTranslateX(20);
         patientSearchButton.setOnAction(event -> {
         	PatientSearch patser = new PatientSearch();
-        	patser.start(window);
+        	patser.start(window, user);
         });
         Button recommendationsButton = new Button("Recommendations");
         recommendationsButton.setTranslateX(20);
@@ -70,13 +70,6 @@ public class DoctorDashboard {
         prescriptionsButton.setTranslateX(20);
         prescriptionsButton.setOnAction(e -> {
             showPrescriptionForm(window, user); // Pass the current 'user' which is a Doctor
-        });
-        
-        Button bookAppointmentButton = new Button("Book Appointment");
-        bookAppointmentButton.setTranslateX(20); // Adjust positioning as needed
-
-        bookAppointmentButton.setOnAction(e -> {
-                displayAppointmentForm(window, user);
         });
 
         if (user instanceof Doctor) {
@@ -105,7 +98,7 @@ public class DoctorDashboard {
         logoutButton.setTranslateY(-10);
         logoutButton.setOnAction(e -> window.close()); 
         
-        layout.getChildren().addAll(title, addPatientButton, patientSearchButton, recommendationsButton, vitalsButton, prescriptionsButton, bookAppointmentButton, logoutButton);
+        layout.getChildren().addAll(title, addPatientButton, patientSearchButton, recommendationsButton, vitalsButton, prescriptionsButton, logoutButton);
         Scene scene = new Scene(layout, 300, 400);
         window.setScene(scene);
         window.setTitle("Doctor Dashboard");
@@ -178,119 +171,5 @@ public class DoctorDashboard {
         }
     }
     
-    public static void displayAppointmentForm(Stage window, User user) {
-        GridPane grid = new GridPane();
-        grid.setAlignment(Pos.CENTER);
-        grid.setHgap(10);
-        grid.setVgap(10);
-        grid.setPadding(new Insets(25, 25, 25, 25));
-        
-        // Patient Username
-        Label patientUsernameLabel = new Label("Patient Username:");
-        grid.add(patientUsernameLabel, 0, 0);
-        TextField patientUsernameField = new TextField();
-        grid.add(patientUsernameField, 1, 0);
-        
-        // Appointment Date
-        Label dateLabel = new Label("Date:");
-        grid.add(dateLabel, 0, 1);
-        DatePicker datePicker = new DatePicker();
-        grid.add(datePicker, 1, 1);
-        
-        // Appointment Time
-        Label timeLabel = new Label("Time (HH:MM):");
-        grid.add(timeLabel, 0, 2);
-        TextField timeField = new TextField();
-        grid.add(timeField, 1, 2);
-        
-        // Purpose
-        Label purposeLabel = new Label("Purpose:");
-        grid.add(purposeLabel, 0, 3);
-        TextField purposeField = new TextField();
-        grid.add(purposeField, 1, 3);
-
-        Scene scene = new Scene(grid, 400, 275);
-        window.setScene(scene);
-        window.setTitle("Add New Appointment");
-        
-        // Submit Button
-        Button submitButton = new Button("Submit");
-        grid.add(submitButton, 1, 4);
-        submitButton.setOnAction(e -> {
-            String patientUsername = patientUsernameField.getText();
-            String date = (datePicker.getValue() != null) ? datePicker.getValue().toString() : "";
-            String time = timeField.getText();
-            String purpose = purposeField.getText();
-        
-            // Basic validation
-            if (patientUsername.isEmpty() || date.isEmpty() || time.isEmpty() || purpose.isEmpty()) {
-                System.out.println("All fields must be filled out.");
-                return; // Stop processing the event here
-            }
-        
-            // Time validation (basic format check)
-            if (!time.matches("\\d{2}:\\d{2}")) {
-                System.out.println("Time must be in the format HH:MM.");
-                return; // Stop processing the event here
-            }
-
-            if(patientUsernameField.getText().isEmpty() || datePicker.getValue() == null) {
-                Alert errorAlert = new Alert(Alert.AlertType.ERROR);
-                errorAlert.setTitle("Error");
-                errorAlert.setHeaderText("Missing Information");
-                errorAlert.setContentText("Please fill out all fields.");
-                errorAlert.showAndWait();
-            } else {
-                // Create the Appointment object
-                // Add this appointment to the doctor's and patient's appointment lists and save to the database
-                Appointment appointment = new Appointment(user.toString(), patientUsername, date, time, purpose);
-                Alert successAlert = new Alert(Alert.AlertType.INFORMATION);
-                successAlert.setTitle("Success");
-                successAlert.setHeaderText(null);
-                successAlert.setContentText("Appointment successfully scheduled.");
-                successAlert.showAndWait();
-
-                patientUsernameField.clear();
-                datePicker.setValue(null);
-                timeField.clear();
-                purposeField.clear();
-
-                if (user instanceof Doctor) {
-                    Doctor doctor = (Doctor) user;
-                    appointmentsTable.setItems(getDoctorAppointments(doctor));
-                    appointmentsTable.refresh();
-                } 
-                
-                display(window, user); // Switch back to the main dashboard
-
-                // Fetch doctor and patient from database
-                Map<String, User> users = Database.getuser();
-
-                // Assuming 'user' is the username of the doctor
-                User possibleDoctor = users.get(user.toString());
-                Doctor doctor = null;
-                if (possibleDoctor instanceof Doctor) {
-                    doctor = (Doctor) possibleDoctor;
-                }
-
-                Patient patient = null;
-                if (users.get(patientUsername) instanceof Patient) {
-                    patient = (Patient) users.get(patientUsername);
-                }
-
-                if (doctor != null && patient != null) {
-                    doctor.addAppointment(appointment);
-                    // Assuming patients also need to track their appointments
-                    // patient.addAppointment(appointment); //might want to add a similar method to Patient class if necessary
-
-                    // Save changes back to the database
-                    Database.saveData();
-                    System.out.println("Appointment successfully added.");
-                } else {
-                    System.out.println("Doctor or patient not found.");
-                    // Show an error message to the user in the GUI
-                }
-            }
-        });       
-    }
+    
 }

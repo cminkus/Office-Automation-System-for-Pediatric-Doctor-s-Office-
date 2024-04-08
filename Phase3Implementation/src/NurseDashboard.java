@@ -38,7 +38,7 @@ public class NurseDashboard {
         patientSearchButton.setTranslateX(20);
         patientSearchButton.setOnAction(event -> {
         	PatientSearch patser = new PatientSearch();
-        	patser.start(window);
+        	patser.start(window, user);
         });
         Button vitalsButton = new Button("Vitals");
         vitalsButton.setTranslateX(20);

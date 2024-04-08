@@ -2,6 +2,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Patient extends User {
+    private List<Appointment> appointments;
     private List<String> medicalRecords;
 
     public Patient(String username, String password) {
@@ -20,5 +21,9 @@ public class Patient extends User {
 
     public List<String> getMedicalRecords() {
         return medicalRecords;
+    }
+
+    public void addAppointment(Appointment appointment) {
+        appointments.add(appointment);
     }
 }

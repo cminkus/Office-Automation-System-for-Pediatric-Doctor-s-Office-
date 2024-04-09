@@ -13,6 +13,7 @@ import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 public class ChangePatientInfo {
@@ -20,6 +21,8 @@ public class ChangePatientInfo {
 	public void start(Stage primaryStage, User user) {
 		primaryStage.setTitle("Change Patient Information");
         GridPane grid = new GridPane();
+        Color backColor = Color.web("#B0EADD");
+        grid.setStyle("-fx-background-color: #" + backColor.toString().substring(2, 8) + ";");
         grid.setAlignment(Pos.CENTER);
         grid.setHgap(11);
         grid.setVgap(11);
@@ -31,18 +34,19 @@ public class ChangePatientInfo {
         grid.add(new Label("Enter new or current Phone Number:"), 0, 1);
         grid.add(newPhoneField, 1, 1);
         Button submitButton = new Button("Submit");
-        grid.add(submitButton, 1, 11);
+        grid.add(submitButton, 1, 2);
         Button backButton = new Button("Back");
-        grid.add(backButton, 2, 11);
+        grid.add(backButton, 2, 2);
         backButton.setOnAction(event -> {
-        	Stage currentStage = (Stage) backButton.getScene().getWindow();
-            currentStage.close();
+        	PatientDashboard patientDash = new PatientDashboard();
+        	patientDash.display(primaryStage, user);
         });
         submitButton.setOnAction(event -> {
         	if (newEmailField.getText().isEmpty() || newPhoneField.getText().isEmpty()) {
         		Utility.alert("Missing Field","Please fill out both fields.");
         	}
         	else {
+        		
         		String oldFileName = "src/Phase3Implementation/" + user.getID() + "_PatientFile.txt";
                 readFile reader = new readFile();
                 reader.mainRead(oldFileName);
@@ -52,7 +56,9 @@ public class ChangePatientInfo {
                 
                 String newFileName =  "src/Phase3Implementation/" + user.getID() + "_PatientFile.txt";
 	            try {
+	            		System.out.println("test 4 here");
 	            		File newFile = new File(newFileName);
+	            		System.out.println("test 5 here");
 	            		FileWriter writer = new FileWriter(newFile);
 	            		writer.write("Patient ID: " + user.getID() + "\n");
 	            		writer.write("First Name: " + reader.getFirstName() + "\n");
@@ -65,16 +71,17 @@ public class ChangePatientInfo {
 	            		writer.write("Insurance Information: " + reader.getPatientInsurance() + "\n");
 	            		writer.write("Health History: " + reader.getPatientHH() + "\n");
 	            		writer.close();
+	            		System.out.println("test 7 here");
 	            	}catch(IOException e){
 	            		e.printStackTrace();
-	            	}
-	            Stage currentStage = (Stage) backButton.getScene().getWindow();
-	            currentStage.close();
+	            	} 
         	}
         	
         });
         
-        Scene scene = new Scene(grid, 450, 450);
+        Scene scene = new Scene(grid, 500, 200);
+        primaryStage.setWidth(500);
+        primaryStage.setHeight(200);
         primaryStage.setScene(scene);
         primaryStage.show();
 	}

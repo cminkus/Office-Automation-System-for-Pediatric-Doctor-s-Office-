@@ -3,16 +3,19 @@ package Phase3Implementation;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.time.LocalDate;
 
 import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.DateCell;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 public class AddPatientInformation  {
@@ -22,6 +25,10 @@ public class AddPatientInformation  {
         primaryStage.setTitle("Add Patient Information");
 
         GridPane grid = new GridPane();
+        
+        Color backColor = Color.web("#D9FED3");
+        grid.setStyle("-fx-background-color: #" + backColor.toString().substring(2, 8) + ";");
+        
         grid.setAlignment(Pos.CENTER);
         grid.setHgap(11);
         grid.setVgap(11);
@@ -38,6 +45,15 @@ public class AddPatientInformation  {
         TextField pharmacyField = new TextField();
         TextField healthHistoryField = new TextField();
         DatePicker DOB = new DatePicker();
+        
+        DOB.setDayCellFactory(picker -> new DateCell() {
+    		public void updateItem(LocalDate date, boolean empty) {
+    			super.updateItem(date, empty);
+    			LocalDate today = LocalDate.now();
+    			setDisable(empty || date.compareTo(today) > 0);
+    		}
+    	});
+
         
         grid.add(new Label("User ID:"), 0, 0);
         grid.add(userIDField, 1, 0);
@@ -131,6 +147,8 @@ public class AddPatientInformation  {
 
         Scene scene = new Scene(grid, 450, 500);
         primaryStage.setScene(scene);
+        primaryStage.setWidth(450);
+        primaryStage.setHeight(500);
         primaryStage.show();
     }
 

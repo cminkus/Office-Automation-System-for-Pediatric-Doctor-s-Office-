@@ -31,6 +31,7 @@ public class NurseDashboard {
 	        Button addPatientButton = new Button("Add New Patient");
 	        addPatientButton.setTranslateX(20);
 	        addPatientButton.setOnAction(e -> {
+	            // Logic to add new patient
 	        	Stage addPatientStage = new Stage();
 	        	AddPatientInformation addPatientInformation = new AddPatientInformation();
 	        	addPatientInformation.start(addPatientStage, user);
@@ -55,6 +56,8 @@ public class NurseDashboard {
 	        layout.getChildren().addAll(title, patientAptList, addPatientButton, patientSearchButton, logoutButton);
 	        Scene scene = new Scene(layout, 300, 400);
 	        window.setScene(scene);
+	        window.setWidth(300);
+	        window.setHeight(400);
 	        window.setTitle("Doctor Dashboard");
 	        window.show();
 	    }

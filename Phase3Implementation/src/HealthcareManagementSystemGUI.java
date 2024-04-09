@@ -71,6 +71,8 @@ public class HealthcareManagementSystemGUI extends Application {
         root.getChildren().addAll(welcomeLabel, usernameField, passwordField, loginButton, registerButton);
 
         Scene scene = new Scene(root, 400, 300);
+        primaryStage.setWidth(400);
+        primaryStage.setHeight(300);
         primaryStage.setScene(scene);
         primaryStage.show();
         

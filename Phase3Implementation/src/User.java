@@ -1,4 +1,5 @@
 package Phase3Implementation;
+
 import java.io.File;
 import java.io.Serializable;
 import java.util.UUID;
@@ -17,12 +18,12 @@ public class User implements Serializable {
         this.role = role;
     }
 
-    // Basic login functionality; can be overridden in subclasses if needed
+    
     public boolean login(String username, String password) {
         return this.username.equals(username) && this.password.equals(password);
     }
 
-    // Basic getters and setters
+    
     public String getUsername() {
         return username;
     }
@@ -62,10 +63,6 @@ public class User implements Serializable {
 	    	return fileName;
     	}
     	return null;
-    }
-
-    public String toString() {
-        return  username;
     }
     
 }

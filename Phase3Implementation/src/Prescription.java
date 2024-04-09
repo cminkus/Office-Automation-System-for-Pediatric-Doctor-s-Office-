@@ -106,16 +106,16 @@ public class Prescription implements Serializable{
 
     @Override
     public String toString() {
-        return "Prescription Summary {" +
+        return "Prescription Summary { " +
                 ", Doctor Username ='" + doctorUsername + 
                 ", Patient ID ='" + patientID + 
-                ", medicationName='" + medicationName + '\'' +
-                ", dosage='" + dosage + '\'' +
-                ", frequency='" + frequency + '\'' +
-                ", issueDate='" + issueDate + '\'' +
-                ", expiryDate='" + expiryDate + '\'' +
+                ", medicationName='" + medicationName + 
+                ", dosage='" + dosage + 
+                ", frequency='" + frequency + 
+                ", issueDate='" + issueDate +
+                ", expiryDate='" + expiryDate +
                 ", refills=" + refills +
-                ", notes='" + notes + '\'' +
-                '}';
+                ", notes='" + notes +
+                " }";
     }
 }

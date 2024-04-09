@@ -81,14 +81,14 @@ public class VitalsPage {
             PatientSearch.start(primaryStage, user, null);
 
         });
+        grid.add(backButton, 1, 5);
 
         Scene scene = new Scene(grid, 300, 250);
         primaryStage.setScene(scene);
+        primaryStage.setHeight(250);
+        primaryStage.setWidth(300);
         primaryStage.show();
     }
-
-    
-}
 
     
 }

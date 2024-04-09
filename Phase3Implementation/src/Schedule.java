@@ -1,8 +1,11 @@
 package Phase3Implementation;
 
+import java.time.LocalDate;
+
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.DateCell;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
@@ -31,6 +34,14 @@ public class Schedule {
         dateField.setPromptText("Select Date");
         dateField.setMaxWidth(200);
         dateField.setTranslateX(50);
+        
+        dateField.setDayCellFactory(picker -> new DateCell() {
+    		public void updateItem(LocalDate date, boolean empty) {
+    			super.updateItem(date, empty);
+    			LocalDate today = LocalDate.now();
+    			setDisable(empty || date.compareTo(today) < 0);
+    		}
+    	});
 
         ComboBox<String> timeField = new ComboBox<>(); 
         timeField.setPromptText("Select Appointment Time");
@@ -39,7 +50,7 @@ public class Schedule {
         timeField.setTranslateX(50);
 
         TextField purposeField = new TextField();
-        purposeField.setPromptText("Enter Purpose");
+        purposeField.setPromptText("Enter Purpose of Visit");
         purposeField.setPrefHeight(100);
         purposeField.setMaxWidth(200);
         purposeField.setTranslateX(50);

@@ -29,9 +29,7 @@ public class ChatScreen  {
 
     
     public void start(Stage primaryStage, User user) {
-    	automaticResponsePatient.add("Google says your dying sorry bro");
-     	automaticResponsePatient.add("Take tylenol");
-     	automaticResponsePatient.add("It's because you're always on your phone, your mom was right");
+    	
      	automaticResponsePatient.add("Don't trust everything Google says; let's focus on your symptoms instead.");
      	automaticResponsePatient.add("Consider taking a break and resting.");
      	automaticResponsePatient.add("Rest and hydrate, it might help.");
@@ -39,7 +37,7 @@ public class ChatScreen  {
      	automaticResponsePatient.add("How can I assist you today?");
      	
      	automaticResponseNurse.add("Hello, I would like to book an appointment.");
-     	automaticResponseNurse.add("Hello, google said I was dying, please confirm.");
+
      	automaticResponseNurse.add("I'm having trouble managing my symptoms, is there anything I can do to feel better in the meantime?.");
      	automaticResponseNurse.add("I need some medical advice. Can you assist?");
      	automaticResponseNurse.add("I'm concerned about my recent test results. Can we discuss them?");
@@ -98,6 +96,8 @@ public class ChatScreen  {
         layout.setBottom(bottomLayout);
 
         Scene scene = new Scene(layout, 400, 300);
+        primaryStage.setWidth(400);
+        primaryStage.setHeight(300);
         primaryStage.setScene(scene);
         primaryStage.show();
     }

@@ -9,13 +9,12 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
-
-import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -68,10 +67,26 @@ public class PrescriptionPage {
         DatePicker issueDatePicker = new DatePicker();
         grid.add(new Label("Issue Date*:"), 0, 5);
         grid.add(issueDatePicker, 1, 5);
+        
+        issueDatePicker.setDayCellFactory(picker -> new DateCell() {
+    		public void updateItem(LocalDate date, boolean empty) {
+    			super.updateItem(date, empty);
+    			LocalDate today = LocalDate.now();
+    			setDisable(empty || date.compareTo(today) < 0);
+    		}
+    	});
 
         DatePicker expiryDatePicker = new DatePicker();
         grid.add(new Label("Expiry Date*:"), 0, 6);
         grid.add(expiryDatePicker, 1, 6);
+        
+        expiryDatePicker.setDayCellFactory(picker -> new DateCell() {
+    		public void updateItem(LocalDate date, boolean empty) {
+    			super.updateItem(date, empty);
+    			LocalDate today = LocalDate.now();
+    			setDisable(empty || date.compareTo(today) < 0);
+    		}
+    	});
 
         Spinner<Integer> refillsSpinner = new Spinner<>(0, Integer.MAX_VALUE, 0);
         grid.add(new Label("Refills*:"), 0, 7);
@@ -180,3 +195,4 @@ public class PrescriptionPage {
     }
     
 }
+

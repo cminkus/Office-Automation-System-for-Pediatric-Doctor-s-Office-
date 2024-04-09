@@ -79,21 +79,30 @@ public class PatientSearch {
             prescriptionPage.start(window, user);
         });
         
+        Button clearSearch = new Button("Reset Patient Search");
+        clearSearch.setTranslateX(20);
+        clearSearch.setOnAction(event -> {
+        	
+        	PatientSearch.start(window, user, null);
+
+        });
+        
         search.setOnAction(event -> {
             if (!enteredID.getText().isEmpty()) { 
-                String fileName = enteredID.getText() + "_PatientFile.txt";
+            	String fileName =  "src/Phase3Implementation/" + enteredID.getText() + "_PatientFile.txt";
                 File file = new File(fileName);
-                if (!file.exists()) { // Check if the file doesn't exist
+                if (!file.exists()) { 
                     Utility.alert("No Patient File Found", "This patient does not have a file. Please create one to proceed.");
                 } else {
                     try {
                         window.setWidth(300);
                         window.setHeight(600);
-                        // Attempt to read the file
+                        
                         readFile reader = new readFile();
+                        
+                        
                         reader.mainRead(fileName);
 
-                        // Display patient information
                         Label nameLabel = new Label("Name: " + reader.getFullName());
                         nameLabel.setTranslateX(20);
                         Label dobLabel = new Label("Date of Birth: " + reader.getDOB());
@@ -113,17 +122,25 @@ public class PatientSearch {
                         contactPatient.setTranslateX(20);
                         vitalsButton.setTranslateX(20);
 
-                        layout.getChildren().addAll(nameLabel, dobLabel, emailLabel, phoneLabel, allergiesLabel, pharmacyLabel, insuranceLabel, HHLabel, contactPatient, scheduleAppointment, vitalsButton, Prescription);
+                        layout.getChildren().addAll(nameLabel, dobLabel, emailLabel, phoneLabel, allergiesLabel, pharmacyLabel, insuranceLabel, HHLabel, contactPatient, scheduleAppointment, vitalsButton, Prescription, clearSearch);
+                        
                     } catch (Exception e) {
-                        Utility.alert("Error", "An error occurred while reading the patient file.");
+                        Utility.alert("Error", "An error occurred while reading the patient file. Please reset the patient search before entering a new patient ID.");
                     }
                 }
+            }else {
+            	Utility.alert("Missing Field", "The patient ID has not been entered. Please enter a patient ID to look up a patient.");
             }
         });
 
+        
+        
+      
         layout.getChildren().addAll(title, pID,enteredID,search,backButton);
-        Scene scene = new Scene(layout, 300, 200);
+        Scene scene = new Scene(layout, 300, 150);
         window.setScene(scene);
+        window.setWidth(300);
+        window.setHeight(150);
         window.setTitle("Patient Search");
         window.show();
     }

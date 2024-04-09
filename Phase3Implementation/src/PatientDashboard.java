@@ -23,7 +23,8 @@ public class PatientDashboard {
         Label pID = new Label("Patient ID: " + user.getID());
         pID.setTranslateX(20);
         
-        String fileName = user.getID() + "_PatientFile.txt";
+        String fileName = "src/Phase3Implementation/" + user.getID() + "_PatientFile.txt";
+        
         readFile reader = new readFile();
         reader.mainRead(fileName);
                 
@@ -48,7 +49,8 @@ public class PatientDashboard {
         Button editButton = new Button("Edit Phone Number or Email");
         editButton.setTranslateX(15);
         editButton.setOnAction(event -> {
-           
+           ChangePatientInfo  change = new ChangePatientInfo();
+           change.start(window, user);
         });
         
         Button chatWithDoctorButton = new Button("Chat with Doctor/Nurse");
@@ -69,6 +71,8 @@ public class PatientDashboard {
         layout.getChildren().addAll(title, pID,nameLabel, dobLabel,emailLabel,phoneLabel, allergiesLabel,pharmacyLabel,insuranceLabel,HHLabel, editButton, chatWithDoctorButton, logoutButton);
         Scene scene = new Scene(layout, 300, 400);
         window.setScene(scene);
+        window.setWidth(300);
+        window.setHeight(400);
         window.setTitle("Patient Dashboard");
         window.show();
     }

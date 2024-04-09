@@ -56,6 +56,8 @@ public class DoctorDashboard {
         
         layout.getChildren().addAll(title, patientAptList, addPatientButton, patientSearchButton, logoutButton);
         Scene scene = new Scene(layout, 300, 400);
+        window.setWidth(300);
+        window.setHeight(400);
         window.setScene(scene);
         window.setTitle("Doctor Dashboard");
         window.show();

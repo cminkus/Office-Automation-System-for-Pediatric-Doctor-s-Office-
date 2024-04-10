@@ -1,0 +1,10 @@
+Patient ID: 124fbf9
+First Name: 1
+Last Name: 2
+Date of Birth: 2024-04-10
+Email: 3
+Phone number: 4
+Allergies: 5
+Pharmacy: 8
+Insurance Information: 7
+Health History: 9

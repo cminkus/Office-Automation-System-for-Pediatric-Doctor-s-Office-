@@ -19,6 +19,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class PrescriptionPage {
+    //Class representing the prescription page
     private List<Prescription> prescriptions = new ArrayList<>();
     private String patientID;
     private ListView<String> prescriptionListView;
@@ -36,8 +37,8 @@ public class PrescriptionPage {
         grid.setStyle("-fx-background-color: #" + backColor.toString().substring(2, 8) + ";");
         
         prescriptions = loadPrescriptions(patientID);
-        
-        
+
+	// Initialize the prescription list view
         prescriptionListView = new ListView<>();
         VBox.setMargin(prescriptionListView, new Insets(10, 0, 0, 0));
         grid.add(prescriptionListView, 0, 0, 2, 1);
@@ -72,6 +73,7 @@ public class PrescriptionPage {
     		public void updateItem(LocalDate date, boolean empty) {
     			super.updateItem(date, empty);
     			LocalDate today = LocalDate.now();
+			// Disables the selection of past dates
     			setDisable(empty || date.compareTo(today) < 0);
     		}
     	});
@@ -84,6 +86,7 @@ public class PrescriptionPage {
     		public void updateItem(LocalDate date, boolean empty) {
     			super.updateItem(date, empty);
     			LocalDate today = LocalDate.now();
+			// Disables the selection of past dates
     			setDisable(empty || date.compareTo(today) < 0);
     		}
     	});
@@ -101,6 +104,7 @@ public class PrescriptionPage {
         grid.add(submitButton, 0, 9);
 
         submitButton.setOnAction(event -> {
+		// Handles erros if any fields are missing
         	if(doctorUsernameField.getText().isEmpty()) {
         		Utility.alert("Missing Fields", "Please check that all required fields (*) are filled.");
         	}else if(medicationNameField.getText().isEmpty()) {

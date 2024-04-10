@@ -3,6 +3,7 @@ package Phase3Implementation;
 import java.io.Serializable;
 
 public class Prescription implements Serializable{
+    // Class representing a prescription
     private String doctorUsername;
     private String patientID;
     private String medicationName;
@@ -30,7 +31,7 @@ public class Prescription implements Serializable{
     }
 
    
-
+    // Getter methods to access the private member variables
     public String getDoctorUsername() {
         return doctorUsername;
     }
@@ -67,7 +68,7 @@ public class Prescription implements Serializable{
         return notes;
     }
 
-
+    // Setter methods to modify the private member variables
     public void setDoctorUsername(String doctorUsername) {
         this.doctorUsername = doctorUsername;
     }

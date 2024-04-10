@@ -17,8 +17,10 @@ import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 public class ChatScreen  {
-    // This class represents the functionality for the chat screen between different users (Doctor, Nurse, Patient)
+
+	// This class represents the functionality for the chat screen between different users (Doctor, Nurse, Patient)
     // It dynamically adjusts the title of the chat window based on the user's role.
+	
     private TextArea chatHistory;
     private TextField messageInput;
     private String role;
@@ -29,7 +31,9 @@ public class ChatScreen  {
 
     
     public void start(Stage primaryStage, User user) {
-    	
+    	automaticResponsePatient.add("Google says your dying sorry bro");
+     	automaticResponsePatient.add("Take tylenol");
+     	automaticResponsePatient.add("It's because you're always on your phone, your mom was right");
      	automaticResponsePatient.add("Don't trust everything Google says; let's focus on your symptoms instead.");
      	automaticResponsePatient.add("Consider taking a break and resting.");
      	automaticResponsePatient.add("Rest and hydrate, it might help.");
@@ -37,7 +41,7 @@ public class ChatScreen  {
      	automaticResponsePatient.add("How can I assist you today?");
      	
      	automaticResponseNurse.add("Hello, I would like to book an appointment.");
-
+     	automaticResponseNurse.add("Hello, google said I was dying, please confirm.");
      	automaticResponseNurse.add("I'm having trouble managing my symptoms, is there anything I can do to feel better in the meantime?.");
      	automaticResponseNurse.add("I need some medical advice. Can you assist?");
      	automaticResponseNurse.add("I'm concerned about my recent test results. Can we discuss them?");
@@ -59,16 +63,15 @@ public class ChatScreen  {
         Color backColor = Color.web("#B0EADD");
         layout.setStyle("-fx-background-color: #" + backColor.toString().substring(2, 8) + ";");
         
-	// The chat history is non-editable and supports wrapping for better readability
+    	// The chat history is non-editable and supports wrapping for better readability
         chatHistory = new TextArea();
         chatHistory.setEditable(false);
         chatHistory.setWrapText(true);
 
         messageInput = new TextField();
         messageInput.setPromptText("Type your message here...");
-
         // Users can send messages by clicking the "Send" button, triggering the handleSendMessage() method
-	Button sendButton = new Button("Send");
+        Button sendButton = new Button("Send");
         
 		sendButton.setOnAction(event -> 
 		handleSendMessage()
@@ -124,7 +127,8 @@ public class ChatScreen  {
     private Random random = new Random();
     
     private String simulateResponse(String role) {
-	// The simulated response is based on the user's role and randomly selected from predefined response lists
+    	// The simulated response is based on the user's role and randomly selected from predefined response lists
+    	
         List<String> automaticResponseList = null;     
         switch (role) {
             case "Patient":
@@ -142,8 +146,7 @@ public class ChatScreen  {
         }
         String response = automaticResponseList.get(random.nextInt(automaticResponseList.size()));
         try {
-	    // A delay of 2 seconds is introduced to simulate the time it takes to receive a response
-            Thread.sleep(2000);
+            Thread.sleep(2000);			    // A delay of 2 seconds is introduced to simulate the time it takes to receive a response
         } catch (InterruptedException e) {
             e.printStackTrace();
         }

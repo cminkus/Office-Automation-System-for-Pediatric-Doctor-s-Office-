@@ -1,8 +1,0 @@
-First Name: Isa
-Last Name: Cohen
-Phone Number: 2089992452
-Allergies: strawberries
-Medication: none
-Insurance: 12345
-Pharmacy: cvs
-Summary of Appointment: good

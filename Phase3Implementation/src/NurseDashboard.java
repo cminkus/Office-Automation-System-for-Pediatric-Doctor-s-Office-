@@ -11,7 +11,7 @@ import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 public class NurseDashboard {
-
+	// Represents the dashboard interface for nurses in the healthcare management system
 	 public static void display(Stage window, User user) {
 	        VBox layout = new VBox(10);
 	        Color backColor = Color.web("#CFD9F7");
@@ -21,7 +21,8 @@ public class NurseDashboard {
 	        title.setStyle("-fx-font-family: 'Times New Roman'; -fx-font-size: 18px;-fx-underline: true;");
 	        title.setTranslateX(10);
 
-	        ListView<String> patientAptList = new ListView<>();
+	        // Used to display upcoming appointments retrieved from the Appointment class
+		ListView<String> patientAptList = new ListView<>();
 	        
 	        ArrayList<Appointment> appointments = Appointment.getAppointments();
 	        for (Appointment appointment : appointments) {
@@ -40,7 +41,7 @@ public class NurseDashboard {
 	        Button patientSearchButton = new Button("Patient Search");
 	        patientSearchButton.setTranslateX(20);
 	        patientSearchButton.setOnAction(event -> {
-	        	
+	        	// Allows nurses to search for patients
 	        	PatientSearch.start(window, user, null);
 
 	        });

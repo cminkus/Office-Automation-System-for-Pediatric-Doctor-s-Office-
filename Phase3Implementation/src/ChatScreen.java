@@ -17,8 +17,8 @@ import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 public class ChatScreen  {
-
-	
+    // This class represents the functionality for the chat screen between different users (Doctor, Nurse, Patient)
+    // It dynamically adjusts the title of the chat window based on the user's role.
     private TextArea chatHistory;
     private TextField messageInput;
     private String role;
@@ -59,7 +59,7 @@ public class ChatScreen  {
         Color backColor = Color.web("#B0EADD");
         layout.setStyle("-fx-background-color: #" + backColor.toString().substring(2, 8) + ";");
         
-
+	// The chat history is non-editable and supports wrapping for better readability
         chatHistory = new TextArea();
         chatHistory.setEditable(false);
         chatHistory.setWrapText(true);
@@ -67,7 +67,8 @@ public class ChatScreen  {
         messageInput = new TextField();
         messageInput.setPromptText("Type your message here...");
 
-        Button sendButton = new Button("Send");
+        // Users can send messages by clicking the "Send" button, triggering the handleSendMessage() method
+	Button sendButton = new Button("Send");
         
 		sendButton.setOnAction(event -> 
 		handleSendMessage()
@@ -103,7 +104,7 @@ public class ChatScreen  {
     }
 
     private void handleSendMessage() {
-    	
+    	// Appends the user's message to the chat history and simulates a response from the other user
         String message = messageInput.getText();
         if (!message.isEmpty()) {
             chatHistory.appendText("You: " + message + "\n");
@@ -123,6 +124,7 @@ public class ChatScreen  {
     private Random random = new Random();
     
     private String simulateResponse(String role) {
+	// The simulated response is based on the user's role and randomly selected from predefined response lists
         List<String> automaticResponseList = null;     
         switch (role) {
             case "Patient":
@@ -140,6 +142,7 @@ public class ChatScreen  {
         }
         String response = automaticResponseList.get(random.nextInt(automaticResponseList.size()));
         try {
+	    // A delay of 2 seconds is introduced to simulate the time it takes to receive a response
             Thread.sleep(2000);
         } catch (InterruptedException e) {
             e.printStackTrace();

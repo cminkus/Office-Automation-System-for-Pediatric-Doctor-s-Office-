@@ -20,7 +20,7 @@ import javafx.stage.Stage;
 
 public class AddPatientInformation  {
 
-    
+    // This class represents the form for adding patient information
     public void start(Stage primaryStage, User user) {
         primaryStage.setTitle("Add Patient Information");
 
@@ -34,7 +34,8 @@ public class AddPatientInformation  {
         grid.setVgap(11);
         grid.setPadding(new Insets(25, 25, 25, 25));
 
-        TextField userIDField = new TextField();
+        // Add elements of the form 
+	TextField userIDField = new TextField();
         TextField firstNameField = new TextField();
         TextField lastNameField = new TextField();
         TextField emailField = new TextField();
@@ -45,7 +46,8 @@ public class AddPatientInformation  {
         TextField pharmacyField = new TextField();
         TextField healthHistoryField = new TextField();
         DatePicker DOB = new DatePicker();
-        
+
+	// Date Picker is customized to disable future dates
         DOB.setDayCellFactory(picker -> new DateCell() {
     		public void updateItem(LocalDate date, boolean empty) {
     			super.updateItem(date, empty);
@@ -96,7 +98,9 @@ public class AddPatientInformation  {
         Button submitButton = new Button("Submit");
         grid.add(submitButton, 1, 11);
 
-        submitButton.setOnAction(event -> {
+        // Validation is performed to ensure that all required fields are filled out before submitting the form
+	// If any field is empty, an alert message is displayed indicating the missing field
+	submitButton.setOnAction(event -> {
         	 if(userIDField.getText().isEmpty()) {
              	Utility.alert("Missing Field","User ID is missing.");
              }else if(firstNameField.getText().isEmpty()) {
@@ -120,9 +124,10 @@ public class AddPatientInformation  {
              }else if(healthHistoryField.getText().isEmpty()) {
              	Utility.alert("Missing Field","Health history is missing.");
              }else {
-	            //handle collecting data here...
+	            // handle collecting data here...
 	            Utility.alert("Success", "Patient File successfuly created and saved!");
-	            
+
+		    // Upon submission, the patient information is saved to a text file
 	            String fileName =  "src/Phase3Implementation/" + userIDField.getText() + "_PatientFile.txt";
 	            try {
 	            		File file = new File(fileName);

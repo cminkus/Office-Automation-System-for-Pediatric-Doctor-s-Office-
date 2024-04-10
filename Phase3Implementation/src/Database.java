@@ -10,16 +10,16 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class Database {
+	
 	// Manages the serialization and deserialization of user data to and from a file named "dataBase.ser"
 	// Utilizes a HashMap to store user data, with the username as the key and the corresponding User object as the value
 	private static final String FILENAME = "src/Phase3Implementation/dataBase.ser";
 	private static Map<String, User> users = new HashMap();
-	
 	// A static initialization block ensures that data is retrieved from the file when the class is loaded into memory
 	static {
         retrieveData(); 
-	// A shutdown hook is registered to automatically save data to the file when the program exits, ensuring data persistence
-        Runtime.getRuntime().addShutdownHook(new Thread(Database::saveData));
+        Runtime.getRuntime().addShutdownHook(new Thread(Database::saveData));	// A shutdown hook is registered to automatically save data to the file when the program exits, ensuring data persistence
+
     }
 	
 	public static Map<String, User> getuser(){
@@ -54,3 +54,4 @@ public class Database {
 		}
 	}
 }
+

@@ -17,7 +17,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class RegistrationScreen extends Application {
-
+	// This class handles the registration screen to create credentials for login
 	private Map<String, User> users = Database.getuser();
 	
     public void start(Stage primaryStage) {
@@ -83,6 +83,7 @@ public class RegistrationScreen extends Application {
             String password = passwordField.getText();
             String role = roleComboBox.getValue();
 
+	    // Handles different error scenarios
             if(users.containsKey(username)) {
             	Utility.alert("Failed", "User already registered. Please login instead.");
             }else if(usernameField.getText().isEmpty()){

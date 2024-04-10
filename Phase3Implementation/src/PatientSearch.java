@@ -139,10 +139,10 @@ public class PatientSearch {
         
       
         layout.getChildren().addAll(title, pID,enteredID,search,backButton);
-        Scene scene = new Scene(layout, 300, 150);
+        Scene scene = new Scene(layout, 300, 200);
         window.setScene(scene);
         window.setWidth(300);
-        window.setHeight(150);
+        window.setHeight(200);
         window.setTitle("Patient Search");
         window.show();
     }

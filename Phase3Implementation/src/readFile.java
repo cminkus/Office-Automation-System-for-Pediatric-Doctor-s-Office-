@@ -19,14 +19,12 @@ public class readFile{
 	private static String patientInsurance="";
 	private static String patientHH="";
 	private static String pFullName = "";
-	
 	//Method to read patient information from a file with a given filename
 	public void mainRead(String fileName) {
-		String filePath = "src/Phase3Implementation/" + fileName;
+		String filePath = fileName;
 		File file = new File(filePath);
 		read(file);
 	}
-	
 	// Method to read patient information from a File object
 	public static void read(File file) {
 		
@@ -34,13 +32,12 @@ public class readFile{
 		try(Scanner scan = new Scanner (file)){
 	    		while(scan.hasNextLine()) {
 	    			String line = scan.nextLine();
-	    			String[] parts = line.split(": ");
-	    			// Process each key-value pair if there's a valid format (key:value)
-				if(parts.length == 2) {
+	    			String[] parts = line.split(": "); 	    			// Process each key-value pair if there's a valid format (key:value)
+	    			if(parts.length == 2) {
 	    				String key = parts[0];
 	    				String value = parts[1];
 	    				// Use a switch statement to assign values based on the key
-					switch(key){
+	    				switch(key){
 	    					case "First Name":
 	    						patientFirst = value;
 	    						break;
@@ -69,18 +66,15 @@ public class readFile{
 	    						patientHH = value;
 	    						break;	
 	    				}
-	    		
+	    	    		// Construct the full patient name after reading all lines 
 	    			}
 	    		}
-	    		// Construct the full patient name after reading all lines 
-			pFullName = patientFirst + " " + patientLast;
-	    }catch(FileNotFoundException e) {
-	    		// Handle the case where the file is not found
-			e.printStackTrace();
+	    		pFullName = patientFirst + " " + patientLast;
+	    }catch(FileNotFoundException e) {	    		// Handle the case where the file is not found
+	    		e.printStackTrace();
 	    	}
 	}
-
-	// Getter methods to access the read patient information
+	
 	public String getFullName() {
 		return pFullName;
 	}

@@ -3,13 +3,14 @@ package Phase3Implementation;
 import java.util.ArrayList;
 
 public class Appointment {
-  
+    // This class represents an appointment in the management system
     private String doctorUsername;
     private String patientId; 
     private String appointmentDate; 
     private String appointmentTime; 
     private String purpose;
     
+    // an ArrayList of appointments is maintained statically to keep track of all appointments
     private static ArrayList<Appointment> appointments = new ArrayList<>();
 
     public Appointment(String doctorUsername, String patientId, String appointmentDate, String appointmentTime, String purpose) {

@@ -31,7 +31,7 @@ public class Prescription implements Serializable{
     }
 
    
-    // Getter methods to access the private member variables
+
     public String getDoctorUsername() {
         return doctorUsername;
     }
@@ -68,7 +68,7 @@ public class Prescription implements Serializable{
         return notes;
     }
 
-    // Setter methods to modify the private member variables
+
     public void setDoctorUsername(String doctorUsername) {
         this.doctorUsername = doctorUsername;
     }

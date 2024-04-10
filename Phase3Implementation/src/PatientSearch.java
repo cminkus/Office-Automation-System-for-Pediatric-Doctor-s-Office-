@@ -10,7 +10,7 @@ import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 public class PatientSearch {
-
+    // Provides functionality to search for patient information using their ID
     public static void start(Stage window, User user, Appointment appointment) {
         VBox layout = new VBox(10);
         
@@ -32,6 +32,7 @@ public class PatientSearch {
         enteredID.setTranslateY(-10);
         
         Button search = new Button("Search");
+        // The search button triggers the search process
         search.setTranslateX(125);
         search.setTranslateY(-10);
         
@@ -88,10 +89,12 @@ public class PatientSearch {
         });
         
         search.setOnAction(event -> {
+            // Patient information is retrieved from the patient file based on the entered ID
             if (!enteredID.getText().isEmpty()) { 
             	String fileName =  "src/Phase3Implementation/" + enteredID.getText() + "_PatientFile.txt";
                 File file = new File(fileName);
                 if (!file.exists()) { 
+                    // If no patient file is found for the entered ID, a message prompt informs the user to create a new patient file
                     Utility.alert("No Patient File Found", "This patient does not have a file. Please create one to proceed.");
                 } else {
                     try {
@@ -129,6 +132,7 @@ public class PatientSearch {
                     }
                 }
             }else {
+                // If the patient ID is not entered, a message prompt notifies the user to provide the ID
             	Utility.alert("Missing Field", "The patient ID has not been entered. Please enter a patient ID to look up a patient.");
             }
         });

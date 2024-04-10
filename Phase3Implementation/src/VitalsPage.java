@@ -16,7 +16,7 @@ import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 public class VitalsPage {
-
+	// Method to launch the Vitals entry screen
 
     public void start(Stage primaryStage, String ID, User user) {
         primaryStage.setTitle("Enter Vitals");
@@ -52,6 +52,7 @@ public class VitalsPage {
         grid.add(submitButton, 1, 4);
 
         submitButton.setOnAction(event -> {
+		// Check if any fields are empty, display error messages accordingly
         	if(bloodPressureField.getText().isEmpty()) {
              	Utility.alert("Missing Field","Blood pressure is missing.");
              }else if(temperatureField.getText().isEmpty()) {
@@ -62,9 +63,11 @@ public class VitalsPage {
              	Utility.alert("Missing Field","Height is missing.");
              }else {
             	 Utility.alert("Success", "Vitals information successfuly created and saved!");
-            	 String fileName = "src/Phase3Implementation/" + formattedDate + "_" + ID + "_Vitals.txt";
+            	 // Construct the filename for the vitals data
+		String fileName = "src/Phase3Implementation/" + formattedDate + "_" + ID + "_Vitals.txt";
             	 try {
-	            		File file = new File(fileName);
+	            		// Create a file and write vitals data to it
+			 	File file = new File(fileName);
 	            		FileWriter writer = new FileWriter(file);
 	            		writer.write("Blood Pressure: " + bloodPressureField.getText() + "\n");
 	            		writer.write("Temperature: " + temperatureField.getText() + "\n");

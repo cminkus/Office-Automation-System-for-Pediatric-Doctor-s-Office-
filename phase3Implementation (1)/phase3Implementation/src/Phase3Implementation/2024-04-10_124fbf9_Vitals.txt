@@ -1,4 +1,0 @@
-Blood Pressure: 1
-Temperature: 2
-Weight: 3
-Height: 4

@@ -20,9 +20,8 @@ public class NurseDashboard {
 	        Label title = new Label("UPCOMING APPOINTMENT");
 	        title.setStyle("-fx-font-family: 'Times New Roman'; -fx-font-size: 18px;-fx-underline: true;");
 	        title.setTranslateX(10);
-
 	        // Used to display upcoming appointments retrieved from the Appointment class
-		ListView<String> patientAptList = new ListView<>();
+	        ListView<String> patientAptList = new ListView<>();
 	        
 	        ArrayList<Appointment> appointments = Appointment.getAppointments();
 	        for (Appointment appointment : appointments) {
@@ -41,7 +40,7 @@ public class NurseDashboard {
 	        Button patientSearchButton = new Button("Patient Search");
 	        patientSearchButton.setTranslateX(20);
 	        patientSearchButton.setOnAction(event -> {
-	        	// Allows nurses to search for patients
+	        	
 	        	PatientSearch.start(window, user, null);
 
 	        });

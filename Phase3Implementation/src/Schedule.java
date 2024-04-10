@@ -34,25 +34,22 @@ public class Schedule {
         dateField.setPromptText("Select Date");
         dateField.setMaxWidth(200);
         dateField.setTranslateX(50);
-        
         // Disables past dates from being scheduled
-	dateField.setDayCellFactory(picker -> new DateCell() {
+        dateField.setDayCellFactory(picker -> new DateCell() {
     		public void updateItem(LocalDate date, boolean empty) {
     			super.updateItem(date, empty);
     			LocalDate today = LocalDate.now();
     			setDisable(empty || date.compareTo(today) < 0);
     		}
     	});
-
         // Creating and setting properties of the time selection field
-	ComboBox<String> timeField = new ComboBox<>(); 
+        ComboBox<String> timeField = new ComboBox<>(); 
         timeField.setPromptText("Select Appointment Time");
         timeField.getItems().addAll("9:00 AM", "10:00 AM", "11:00 AM", "1:00 PM", "2:00 PM", "3:00 PM", "4:00 PM","5:00 PM");
         timeField.setMaxWidth(200);
         timeField.setTranslateX(50);
-
         // Creating and setting properties of the purpose field
-	TextField purposeField = new TextField();
+        TextField purposeField = new TextField();
         purposeField.setPromptText("Enter Purpose of Visit");
         purposeField.setPrefHeight(100);
         purposeField.setMaxWidth(200);
@@ -64,9 +61,8 @@ public class Schedule {
             String date = dateField.getValue().toString();
             String time = timeField.getValue().toString();
             String purpose = purposeField.getText();
-            
             // Checking for time conflicts with existing appointments
-	    boolean conflictFound = false;
+            boolean conflictFound = false;
             for (Appointment appointment1 : Appointment.getAppointments()) {
                 if (appointment1.getDoctorUsername().equals(StaffUserField.getText()) &&
                     appointment1.getAppointmentDate().equals(date) &&
@@ -77,9 +73,8 @@ public class Schedule {
             }
             if (conflictFound) {
                 Utility.alert("Time Conflict", "Appointment Time or Date Unavailable. Please choose another time or date.");
-            } else {
-                // Creating an appointment if no conflict is found
-		Appointment appointment = new Appointment(StaffUser, id, date, time, purpose);
+            } else {                // Creating an appointment if no conflict is found
+                Appointment appointment = new Appointment(StaffUser, id, date, time, purpose);
                 Appointment.addAppointment(appointment);
                 Utility.alert("Appointment scheduled!", "Appointment Summary:" + "\n" + appointment);
             }

@@ -28,7 +28,7 @@ public class ChangePatientInfo {
         grid.setVgap(11);
         grid.setPadding(new Insets(25, 25, 25, 25));
         // Text fields are provided for users to input the new email and phone number
-	TextField newEmailField = new TextField();
+        TextField newEmailField = new TextField();
         TextField newPhoneField = new TextField();
         grid.add(new Label("Enter new or current Email:"), 0, 0);
         grid.add(newEmailField, 1, 0);
@@ -42,13 +42,13 @@ public class ChangePatientInfo {
         	PatientDashboard patientDash = new PatientDashboard();
         	patientDash.display(primaryStage, user);
         });
-	// Submit action handler checks if both email and phone number fields are filled. If not, it displays an alert
+    	// Submit action handler checks if both email and phone number fields are filled. If not, it displays an alert
         submitButton.setOnAction(event -> {
         	if (newEmailField.getText().isEmpty() || newPhoneField.getText().isEmpty()) {
         		Utility.alert("Missing Field","Please fill out both fields.");
         	}
         	else {
-        	// If both fields are filled, it reads the existing patient information from the file, deletes the old file, and creates a new file with updated information
+            	// If both fields are filled, it reads the existing patient information from the file, deletes the old file, and creates a new file with updated information
         		String oldFileName = "src/Phase3Implementation/" + user.getID() + "_PatientFile.txt";
                 readFile reader = new readFile();
                 reader.mainRead(oldFileName);
@@ -60,6 +60,7 @@ public class ChangePatientInfo {
 	            try {
 	            		
 	            		File newFile = new File(newFileName);
+	            		
 	            		FileWriter writer = new FileWriter(newFile);
 	            		writer.write("Patient ID: " + user.getID() + "\n");
 	            		writer.write("First Name: " + reader.getFirstName() + "\n");

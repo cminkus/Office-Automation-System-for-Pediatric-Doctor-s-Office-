@@ -30,9 +30,8 @@ public class PatientSearch {
         enteredID.setMaxWidth(150);
         enteredID.setTranslateX(80);
         enteredID.setTranslateY(-10);
-        
-        Button search = new Button("Search");
         // The search button triggers the search process
+        Button search = new Button("Search");
         search.setTranslateX(125);
         search.setTranslateY(-10);
         
@@ -93,8 +92,7 @@ public class PatientSearch {
             if (!enteredID.getText().isEmpty()) { 
             	String fileName =  "src/Phase3Implementation/" + enteredID.getText() + "_PatientFile.txt";
                 File file = new File(fileName);
-                if (!file.exists()) { 
-                    // If no patient file is found for the entered ID, a message prompt informs the user to create a new patient file
+                if (!file.exists()) {                     // If no patient file is found for the entered ID, a message prompt informs the user to create a new patient file
                     Utility.alert("No Patient File Found", "This patient does not have a file. Please create one to proceed.");
                 } else {
                     try {
@@ -128,11 +126,11 @@ public class PatientSearch {
                         layout.getChildren().addAll(nameLabel, dobLabel, emailLabel, phoneLabel, allergiesLabel, pharmacyLabel, insuranceLabel, HHLabel, contactPatient, scheduleAppointment, vitalsButton, Prescription, clearSearch);
                         
                     } catch (Exception e) {
+                        // If the patient ID is not entered, a message prompt notifies the user to provide the ID
                         Utility.alert("Error", "An error occurred while reading the patient file. Please reset the patient search before entering a new patient ID.");
                     }
                 }
             }else {
-                // If the patient ID is not entered, a message prompt notifies the user to provide the ID
             	Utility.alert("Missing Field", "The patient ID has not been entered. Please enter a patient ID to look up a patient.");
             }
         });

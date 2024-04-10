@@ -17,7 +17,8 @@ import java.io.IOException;
 import java.util.Map;
 
 public class HealthcareManagementSystemGUI extends Application {
-	
+	// Represents the graphical user interface (GUI) of the healthcare management system
+	// Consists of a login screen where users can enter their username and password to access the system
     private Stage primaryStage;
 
     private Map<String, User> users = Database.getuser();
@@ -27,7 +28,8 @@ public class HealthcareManagementSystemGUI extends Application {
         this.primaryStage = primaryStage;
         primaryStage.setTitle("Healthcare Management System");
 
-        Database.retrieveData();
+        // Retrieves user data from the database using the Database class, allowing users to authenticate
+	Database.retrieveData();
         users = Database.getuser();
         
         VBox root = new VBox();
@@ -38,7 +40,6 @@ public class HealthcareManagementSystemGUI extends Application {
 
         Label welcomeLabel = new Label("Welcome to the Healthcare Management System");
         welcomeLabel.setStyle("-fx-font-family: 'Times New Roman'; -fx-font-size: 18px;-fx-underline: true;");
-       
 
         TextField usernameField = new TextField();
         usernameField.setPromptText("Enter username");
@@ -48,13 +49,17 @@ public class HealthcareManagementSystemGUI extends Application {
         passwordField.setPromptText("Enter password");
         passwordField.setMaxWidth(200);
 
+	// Users can either log in using existing credentials or register for a new account by clicking the "Register" button
+
         Button loginButton = new Button("Login");
         loginButton.setOnAction(event -> {
             String username = usernameField.getText();
             String password = passwordField.getText();
 
-            User user = authenticateUser(username, password);
-            if (user != null) {
+	    User user = authenticateUser(username, password);
+            // If the authentication is successful, the user is redirected to their respective dashboard based on their role (Doctor, Nurse, or Patient)
+	    // If authentication fails, an alert message is displayed, indicating incorrect credentials or the need for registration
+	    if (user != null) {
             	Utility.alert("Success", "Login successful!");
                 redirectToDashboard(user);
             } else {

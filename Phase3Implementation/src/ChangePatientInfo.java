@@ -58,9 +58,8 @@ public class ChangePatientInfo {
                 
                 String newFileName =  "src/Phase3Implementation/" + user.getID() + "_PatientFile.txt";
 	            try {
-	            		System.out.println("test 4 here");
+	            		
 	            		File newFile = new File(newFileName);
-	            		System.out.println("test 5 here");
 	            		FileWriter writer = new FileWriter(newFile);
 	            		writer.write("Patient ID: " + user.getID() + "\n");
 	            		writer.write("First Name: " + reader.getFirstName() + "\n");
@@ -73,7 +72,6 @@ public class ChangePatientInfo {
 	            		writer.write("Insurance Information: " + reader.getPatientInsurance() + "\n");
 	            		writer.write("Health History: " + reader.getPatientHH() + "\n");
 	            		writer.close();
-	            		System.out.println("test 7 here");
 	            	}catch(IOException e){
 	            		e.printStackTrace();
 	            	} 

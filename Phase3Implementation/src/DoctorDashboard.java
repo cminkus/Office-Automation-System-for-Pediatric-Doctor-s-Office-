@@ -10,7 +10,7 @@ import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 public class DoctorDashboard {
-    // Provides the user interface for the doctor's dashboard in the healthcare management system
+	// Provides the user interface for the doctor's dashboard in the healthcare management system
     // Displays an upcoming appointment list for the doctor along with options to add a new patient, search for patients, and logout
     public static void display(Stage window, User user) {
         VBox layout = new VBox(10);
@@ -20,11 +20,9 @@ public class DoctorDashboard {
         Label title = new Label("UPCOMING APPOINTMENT");
         title.setStyle("-fx-font-family: 'Times New Roman'; -fx-font-size: 18px;-fx-underline: true;");
         title.setTranslateX(10);
-
         // The appointment details are added to a ListView to display them in a scrollable list format
-	ListView<String> patientAptList = new ListView<>();
-
-	// An ArrayList of appointments is retrieved using the getAppointments() method from the Appointment class
+        ListView<String> patientAptList = new ListView<>();
+    	// An ArrayList of appointments is retrieved using the getAppointments() method from the Appointment class
         ArrayList<Appointment> appointments = Appointment.getAppointments();
         for (Appointment appointment : appointments) {
         	patientAptList.getItems().add(appointment.toString());

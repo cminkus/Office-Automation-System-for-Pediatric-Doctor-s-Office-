@@ -9,7 +9,7 @@ import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 public class PatientDashboard {
-
+    // Represents the dashboard interface for patients in the healthcare management system
     public static void display(Stage window, User user) {
         VBox layout = new VBox(10);
         
@@ -27,7 +27,8 @@ public class PatientDashboard {
         
         readFile reader = new readFile();
         reader.mainRead(fileName);
-                
+
+        // Patient information is retrieved from the patient file
         Label nameLabel = new Label("Name: " + reader.getFullName());
         nameLabel.setTranslateX(20);
         Label dobLabel = new Label("Date of Birth: " + reader.getDOB());
@@ -49,6 +50,7 @@ public class PatientDashboard {
         Button editButton = new Button("Edit Phone Number or Email");
         editButton.setTranslateX(15);
         editButton.setOnAction(event -> {
+           // Allows patients to update their contact information
            ChangePatientInfo  change = new ChangePatientInfo();
            change.start(window, user);
         });
@@ -56,7 +58,8 @@ public class PatientDashboard {
         Button chatWithDoctorButton = new Button("Chat with Doctor/Nurse");
         chatWithDoctorButton.setTranslateX(15);
         chatWithDoctorButton.setOnAction(event -> {
-        	ChatScreen chat = new ChatScreen();
+        	// Enables patients to communicate with healthcare providers
+            ChatScreen chat = new ChatScreen();
         	chat.setRole(user.getRole());
         	chat.start(window, user);
         });

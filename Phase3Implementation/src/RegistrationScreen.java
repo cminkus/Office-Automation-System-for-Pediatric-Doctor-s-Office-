@@ -84,7 +84,7 @@ public class RegistrationScreen extends Application {
             String role = roleComboBox.getValue();
 
             if(users.containsKey(username)) {
-            	Utility.alert("Failed", "User already registered. Please login instead.");
+            	Utility.alert("Failed", "Username already in use. Please login instead or choose a different username.");
             }else if(usernameField.getText().isEmpty()){
             	Utility.alert("Missing Field", "Username missing. Please choose a username.");
             }else if(passwordField.getText().isEmpty()){

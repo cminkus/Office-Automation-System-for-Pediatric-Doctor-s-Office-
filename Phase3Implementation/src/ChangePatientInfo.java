@@ -73,6 +73,7 @@ public class ChangePatientInfo {
 	            		writer.write("Insurance Information: " + reader.getPatientInsurance() + "\n");
 	            		writer.write("Health History: " + reader.getPatientHH() + "\n");
 	            		writer.close();
+			    	Utility.alert("Success", "Email/Phone number successfully changed");
 	            	}catch(IOException e){
 	            		e.printStackTrace();
 	            	} 

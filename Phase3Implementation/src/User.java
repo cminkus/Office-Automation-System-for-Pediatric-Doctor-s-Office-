@@ -6,7 +6,7 @@ import java.util.UUID;
 
 public class User implements Serializable {
     // Class representing a User in the system
-    protected String ID;
+	protected String ID;
     protected String username;
     protected String password;
     protected String role;
@@ -24,7 +24,7 @@ public class User implements Serializable {
         return this.username.equals(username) && this.password.equals(password);
     }
 
-    // Getters and Setters for username, password, and role
+    
     public String getUsername() {
         return username;
     }
@@ -37,7 +37,7 @@ public class User implements Serializable {
         return password;
     }
 
-    public void setPassword(String password) {
+    public void setPassword(String password) {			    // Getters and Setters for username, password, and role
         this.password = password;
     }
 
@@ -48,9 +48,8 @@ public class User implements Serializable {
     public void setRole(String role) {
         this.role = role;
     }
-    
-    // Method to generate a random, alphanumeric User ID
     private String IDgen() {
+    	
     	return UUID.randomUUID().toString().replaceAll("-", "").substring(0, 7);
     }
     
@@ -58,10 +57,9 @@ public class User implements Serializable {
     	return ID;
     }
     
-    // Method to get the filename associated with the User (if applicable)
-	public String getFileName(String role) {
+    public String getFileName(String role) {
     	String fileName = ID + "_patientFile.txt";
-    	File file = new File(fileName);
+    	File file = new File(fileName);					    // Method to get the filename associated with the User (if applicable)
     	if(role.equals("patient") && file.exists()) {
 	    	return fileName;
     	}
